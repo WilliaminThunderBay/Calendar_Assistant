@@ -1,8 +1,12 @@
+
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
 */
 import { Video } from '@google/genai';
+
+export type Region = 'Domestic' | 'Penang' | 'Kuala Lumpur' | 'Kuantan' | 'Johor Bahru' | 'Kuching';
+export type Role = 'Owner' | 'Editor' | 'Commenter' | 'Viewer';
 
 export interface Task {
   id: number;
@@ -12,10 +16,13 @@ export interface Task {
   date: string; // YYYY-MM-DD
   time: string; // HH:MM-HH:MM
   location: string; // 地点
-  service: string; // 服务类型
+  service: string; // 服务类型 (Workflow stage)
   note?: string;
   color: 'red' | 'blue' | 'green' | 'orange' | 'white';
   type: string; // 工程单/常规
+  region: Region;
+  images: string[]; // Array of image URLs/Base64
+  tags: string[]; // ['S', 'wp', 'p']
 }
 
 export interface User {
@@ -24,6 +31,49 @@ export interface User {
   initials: string;
   color: string;
   isOnline: boolean;
+  region: Region;
+  role: Role;
+}
+
+export interface UserProfile {
+  name: string;
+  email: string;
+  phone: string;
+  whatsapp: string;
+  avatar: string; // URL or base64
+  role: Role;
+}
+
+export interface Comment {
+  id: string;
+  taskId: number;
+  userId: number;
+  userName: string;
+  userInitials: string;
+  userColor: string;
+  content: string;
+  createdAt: string;
+  resolved: boolean;
+}
+
+export interface ActivityLog {
+  id: string;
+  taskId?: number; // if null, global/calendar level
+  userId: number;
+  userName: string;
+  action: string;
+  details: string;
+  timestamp: string;
+  type: 'create' | 'update' | 'delete' | 'comment' | 'suggestion';
+}
+
+export interface ChatMessage {
+  id: string;
+  userId: number;
+  userName: string;
+  userColor: string;
+  content: string;
+  timestamp: string;
 }
 
 export type ViewMode = 'month' | 'week' | 'day';

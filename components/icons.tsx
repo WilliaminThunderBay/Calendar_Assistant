@@ -1,3 +1,4 @@
+
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -33,7 +34,24 @@ import {
   Sparkles,
   Type,
   Tv,
-  RefreshCw
+  RefreshCw,
+  Check,
+  Trash2,
+  Settings,
+  LogOut,
+  History,
+  Users,
+  Share2,
+  Phone,
+  Mail,
+  Camera,
+  CornerUpLeft,
+  Edit3,
+  Eye,
+  MessageCircle,
+  Copy,
+  Globe,
+  Lock
 } from 'lucide-react';
 
 const defaultProps = {
@@ -58,6 +76,8 @@ export const SendIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Sen
 export const FileTextIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <FileText {...defaultProps} {...props} />;
 export const GridIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Grid {...defaultProps} {...props} />;
 export const ListIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <List {...defaultProps} {...props} />;
+export const CheckIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Check {...defaultProps} {...props} />;
+export const TrashIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Trash2 {...defaultProps} {...props} />;
 
 // New icons for Veo and AI features
 export const KeyIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Key {...defaultProps} {...props} />;
@@ -73,3 +93,23 @@ export const TextModeIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => 
 export const TvIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Tv {...defaultProps} {...props} />;
 export const XMarkIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <X {...defaultProps} {...props} />;
 export const ArrowPathIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <RefreshCw {...defaultProps} {...props} />;
+export const ImagesIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Images {...defaultProps} {...props} />;
+
+// User Profile & Collaboration Icons
+export const SettingsIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Settings {...defaultProps} {...props} />;
+export const LogOutIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <LogOut {...defaultProps} {...props} />;
+export const HistoryIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <History {...defaultProps} {...props} />;
+export const UsersIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Users {...defaultProps} {...props} />;
+export const ShareIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Share2 {...defaultProps} {...props} />;
+export const PhoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Phone {...defaultProps} {...props} />;
+export const MailIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Mail {...defaultProps} {...props} />;
+export const CameraIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Camera {...defaultProps} {...props} />;
+export const UndoIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <CornerUpLeft {...defaultProps} {...props} />;
+export const EditIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Edit3 {...defaultProps} {...props} />;
+export const EyeIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Eye {...defaultProps} {...props} />;
+export const ChatIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <MessageCircle {...defaultProps} {...props} />;
+
+// Share Modal Icons
+export const CopyIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Copy {...defaultProps} {...props} />;
+export const GlobeIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Globe {...defaultProps} {...props} />;
+export const LockIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Lock {...defaultProps} {...props} />;
