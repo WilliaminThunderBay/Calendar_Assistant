@@ -1,10 +1,9 @@
-
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
 */
 import React, { useState } from 'react';
-import { XIcon, CopyIcon, GlobeIcon, LockIcon, ChevronDownIcon } from './icons';
+import { XIcon, CopyIcon, GlobeIcon, LockIcon, ChevronDownIcon, CheckIcon } from './icons';
 import { Role } from '../types';
 
 interface ShareModalProps {
@@ -22,6 +21,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
   const [linkSharingEnabled, setLinkSharingEnabled] = useState(true);
   const [emailInput, setEmailInput] = useState('');
   const [inviteRole, setInviteRole] = useState<Role>('Editor');
+  const [copiedLinkType, setCopiedLinkType] = useState<'edit' | 'view' | null>(null);
   
   const [collaborators, setCollaborators] = useState<Collaborator[]>([
     { email: 'admin@example.com', role: 'Owner', isOwner: true },
@@ -31,9 +31,12 @@ const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const handleCopy = (text: string) => {
+  const handleCopy = (text: string, type: 'edit' | 'view') => {
     navigator.clipboard.writeText(text);
-    // Could add toast notification here
+    setCopiedLinkType(type);
+    setTimeout(() => {
+      setCopiedLinkType(null);
+    }, 1000); // Show "Copied!" feedback for 1 second
   };
 
   const handleInvite = () => {
@@ -122,9 +125,20 @@ const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
                   <label className="text-xs font-bold text-gray-500 uppercase">Anyone with this link can edit this project</label>
                   <div className="flex gap-2">
                     <input readOnly value={editLink} className="flex-1 px-3 py-2 bg-white border border-gray-300 rounded text-gray-600 text-sm select-all outline-none" />
-                    <button onClick={() => handleCopy(editLink)} className="p-2 bg-white border border-gray-300 rounded hover:bg-gray-50 text-indigo-600 transition-colors" title="Copy Link">
-                      <CopyIcon className="w-4 h-4" />
-                    </button>
+                    <div className="relative">
+                      {copiedLinkType === 'edit' && (
+                        <div className="absolute bottom-full right-0 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded shadow-lg animate-in fade-in zoom-in duration-200 whitespace-nowrap after:content-[''] after:absolute after:top-full after:right-3 after:border-4 after:border-transparent after:border-t-gray-800">
+                          Copied!
+                        </div>
+                      )}
+                      <button 
+                        onClick={() => handleCopy(editLink, 'edit')} 
+                        className={`p-2 border rounded transition-colors ${copiedLinkType === 'edit' ? 'bg-green-50 border-green-500 text-green-600' : 'bg-white border-gray-300 hover:bg-gray-50 text-indigo-600'}`} 
+                        title="Copy Link"
+                      >
+                        {copiedLinkType === 'edit' ? <CheckIcon className="w-4 h-4" /> : <CopyIcon className="w-4 h-4" />}
+                      </button>
+                    </div>
                   </div>
                 </div>
 
@@ -132,9 +146,20 @@ const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
                   <label className="text-xs font-bold text-gray-500 uppercase">Anyone with this link can view this project</label>
                   <div className="flex gap-2">
                     <input readOnly value={viewLink} className="flex-1 px-3 py-2 bg-white border border-gray-300 rounded text-gray-600 text-sm select-all outline-none" />
-                    <button onClick={() => handleCopy(viewLink)} className="p-2 bg-white border border-gray-300 rounded hover:bg-gray-50 text-indigo-600 transition-colors" title="Copy Link">
-                      <CopyIcon className="w-4 h-4" />
-                    </button>
+                    <div className="relative">
+                      {copiedLinkType === 'view' && (
+                        <div className="absolute bottom-full right-0 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded shadow-lg animate-in fade-in zoom-in duration-200 whitespace-nowrap after:content-[''] after:absolute after:top-full after:right-3 after:border-4 after:border-transparent after:border-t-gray-800">
+                          Copied!
+                        </div>
+                      )}
+                      <button 
+                        onClick={() => handleCopy(viewLink, 'view')} 
+                        className={`p-2 border rounded transition-colors ${copiedLinkType === 'view' ? 'bg-green-50 border-green-500 text-green-600' : 'bg-white border-gray-300 hover:bg-gray-50 text-indigo-600'}`} 
+                        title="Copy Link"
+                      >
+                        {copiedLinkType === 'view' ? <CheckIcon className="w-4 h-4" /> : <CopyIcon className="w-4 h-4" />}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

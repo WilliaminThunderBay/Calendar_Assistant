@@ -1,9 +1,10 @@
+
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
 */
 import { GoogleGenAI, Type } from '@google/genai';
-import { Task } from '../types';
+import { Task, ChatMessage } from '../types';
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
@@ -80,5 +81,39 @@ export const analyzeScheduleRequest = async (
       text: "抱歉，AI助手暂时无法连接。",
       tasks: []
     };
+  }
+};
+
+export const summarizeChat = async (chatHistory: ChatMessage[]): Promise<string> => {
+  try {
+    if (chatHistory.length === 0) return "今日暂无聊天记录。";
+
+    const historyText = chatHistory
+      .map(msg => `${msg.userName}: ${msg.content}`)
+      .join('\n');
+
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: `
+        You are an AI secretary for an engineering team. 
+        Analyze the following chat history and generate a structured "Daily Task Summary".
+        
+        Chat History:
+        ${historyText}
+
+        Output Format:
+        ### 📅 今日任务总结
+        - [已确认] 任务内容 (负责人)
+        - [待确认] 任务内容 (提及人)
+        - [重要通知] ...
+
+        Keep it concise and professional.
+      `
+    });
+    
+    return response.text || "无法生成总结。";
+  } catch (error) {
+    console.error("AI Summarization failed", error);
+    return "AI总结服务暂时不可用。";
   }
 };

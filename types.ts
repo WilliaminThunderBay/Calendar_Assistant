@@ -67,6 +67,14 @@ export interface ActivityLog {
   type: 'create' | 'update' | 'delete' | 'comment' | 'suggestion';
 }
 
+export interface Attachment {
+  id: string;
+  name: string;
+  type: 'image' | 'file';
+  url: string; // base64 or url
+  size: number;
+}
+
 export interface ChatMessage {
   id: string;
   userId: number;
@@ -74,6 +82,25 @@ export interface ChatMessage {
   userColor: string;
   content: string;
   timestamp: string;
+  attachments?: Attachment[];
+}
+
+export interface FileItem {
+  id: string;
+  name: string;
+  type: string; // 'pdf', 'doc', 'image', etc.
+  size: number;
+  url: string;
+  uploadedBy: string;
+  uploadedAt: string;
+  folderId?: string;
+  sourceMessageId?: string; // Link back to chat
+}
+
+export interface Folder {
+  id: string;
+  name: string;
+  createdAt: string;
 }
 
 export type ViewMode = 'month' | 'week' | 'day';

@@ -51,7 +51,15 @@ import {
   MessageCircle,
   Copy,
   Globe,
-  Lock
+  Lock,
+  Paperclip,
+  Folder,
+  File,
+  Download,
+  Smile,
+  Brain,
+  Cloud,
+  Link
 } from 'lucide-react';
 
 const defaultProps = {
@@ -113,3 +121,13 @@ export const ChatIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Mes
 export const CopyIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Copy {...defaultProps} {...props} />;
 export const GlobeIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Globe {...defaultProps} {...props} />;
 export const LockIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Lock {...defaultProps} {...props} />;
+
+// Collaboration Center Update
+export const PaperclipIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Paperclip {...defaultProps} {...props} />;
+export const FolderIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Folder {...defaultProps} {...props} />;
+export const FileIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <File {...defaultProps} {...props} />;
+export const DownloadIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Download {...defaultProps} {...props} />;
+export const SmileIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Smile {...defaultProps} {...props} />;
+export const BrainIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Brain {...defaultProps} {...props} />;
+export const CloudIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Cloud {...defaultProps} {...props} />;
+export const LinkIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => <Link {...defaultProps} {...props} />;
