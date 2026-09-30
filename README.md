@@ -1,18 +1,43 @@
-# AI Calendar & Office Operations Assistant
+# Executive Operations AI Workspace
 
-A React + TypeScript productivity prototype that combines calendar/task coordination, team collaboration, file organization, activity tracking, and an AI assistant powered by Gemini.
+A React + TypeScript portfolio prototype showing how an Executive Assistant / Office Manager can combine calendar coordination, office operations, collaboration and practical AI workflows in one internal workspace.
 
-This project demonstrates how AI can support day-to-day office operations by turning natural-language requests into structured tasks, helping summarize team communication, and centralizing scheduling and operational information.
+![Executive Operations AI Workspace preview](docs/executive-ops-dashboard.svg)
 
-## Key Features
+> The preview above mirrors the executive dashboard included in the app. The project uses sample operational data and is intended as a portfolio demonstration.
 
-- **Calendar and task coordination** - create, update, filter, and track operational tasks by date, staff member, service, region, status, and notes.
-- **AI scheduling assistant** - interprets natural-language requests, answers schedule questions, and can extract structured task details.
-- **AI daily summaries** - converts team chat history into concise task summaries with confirmed items, pending items, and important notices.
-- **Collaboration workspace** - team chat, comments, activity history, user roles, sharing controls, and online-user views.
-- **Office file organization** - upload files and organize them into folders for shared operational reference.
-- **Operational audit trail** - records task creation, updates, comments, and deletions for better visibility and follow-through.
-- **Responsive web interface** - designed as a practical internal operations tool rather than a standalone AI demo.
+## What the app demonstrates
+
+### Executive support
+- Executive daily brief with priorities, follow-ups and recent activity
+- Calendar and task coordination with staff, service, date, time, notes and regional views
+- Structured follow-up tracking so ownership and next actions stay visible
+- Meeting and document workflow examples for agendas, minutes, briefings and email follow-up
+
+### Office operations
+- Visitor coordination
+- Vendor follow-up
+- Document preparation
+- Supply / facility request tracking
+- Shared files, folders, comments and activity history
+
+### AI productivity
+- Natural-language scheduling assistant
+- Structured task extraction from free-form requests
+- Daily chat summarization
+- Executive-brief preview
+- Meeting-notes to minutes workflow
+- Follow-up email drafting workflow
+- Office-request summarization workflow
+
+## Sample workflow
+
+1. An executive or team member sends an unstructured request.
+2. The AI assistant interprets the request and extracts task details.
+3. The task is added to the calendar with owner, date, service and notes.
+4. The dashboard surfaces priorities and follow-ups.
+5. Collaboration history, files and comments remain attached to the workflow.
+6. AI can summarize updates into an executive-ready brief or follow-up draft.
 
 ## Technology
 
@@ -20,13 +45,13 @@ This project demonstrates how AI can support day-to-day office operations by tur
 - TypeScript
 - Vite
 - Gemini 2.5 Flash via `@google/genai`
-- Local browser storage for prototype persistence
+- Browser storage for prototype persistence
 
-## Why This Project Matters
+## Why this project exists
 
-The prototype is focused on practical productivity: keeping schedules organized, making responsibilities visible, reducing repetitive coordination work, and using AI to turn unstructured requests and conversations into actionable information.
+The goal is not to build a generic chatbot. It is to demonstrate practical office productivity: reducing repetitive coordination, keeping responsibilities visible, organizing operational information, and using AI to turn unstructured requests into actionable work.
 
-## Run Locally
+## Run locally
 
 **Prerequisites:** Node.js and a Gemini API key.
 
@@ -40,6 +65,6 @@ The prototype is focused on practical productivity: keeping schedules organized,
    npm run dev
    ```
 
-## Portfolio Note
+## Portfolio note
 
-This is an independent portfolio prototype using sample operational data. It is intended to demonstrate workflow design, AI-assisted coordination, and internal productivity concepts.
+Independent prototype using sample data. Built to demonstrate workflow design, AI-assisted coordination, documentation and internal productivity concepts relevant to executive support and office operations.
