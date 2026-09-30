@@ -39,23 +39,25 @@ const ExecutiveDashboard: React.FC<ExecutiveDashboardProps> = ({
   ];
 
   const actions = [
-    {
-      label: 'Generate executive brief',
-      output: 'EXECUTIVE BRIEF\n• Today: 4 scheduled items, 2 priority follow-ups\n• Attention: one timing conflict needs confirmation\n• Decision needed: approve vendor option B before 2:00 PM\n• Next: send consolidated follow-up after the afternoon meeting.'
-    },
-    {
-      label: 'Turn notes into minutes',
-      output: 'MEETING MINUTES\nDecisions: proceed with the revised timeline.\nAction items: William - circulate updated schedule; Operations - confirm vendor availability.\nDue dates: confirmations by tomorrow, final brief by Friday.'
-    },
-    {
-      label: 'Draft follow-up email',
-      output: 'Subject: Follow-up and next steps\n\nHi team,\nThank you for today’s discussion. I’ve summarized the agreed actions and owners below. Please confirm any corrections by 3:00 PM so the final schedule can be circulated.'
-    },
-    {
-      label: 'Summarize office requests',
-      output: 'OFFICE REQUEST SUMMARY\n• 2 vendor items awaiting response\n• 1 visitor request requiring access confirmation\n• 3 documents in draft status\n• No overdue supply requests\nRecommended next step: consolidate open items into one 2:00 PM check-in.'
-    }
+    { label: 'Generate executive brief', key: 'brief' as const },
+    { label: 'Turn notes into minutes', key: 'minutes' as const },
+    { label: 'Draft follow-up email', key: 'email' as const },
+    { label: 'Summarize office requests', key: 'office-summary' as const }
   ];
+
+  const runAIAction = async (action: (typeof actions)[number]['key']) => {
+    const taskContext = tasks.slice(0, 8).map(task =>
+      [task.number, task.date, task.time, task.staff, task.service, task.note]
+        .filter(Boolean)
+        .join(' | ')
+    ).join('\n');
+
+    setIsGenerating(true);
+    setAiOutput('Generating...');
+    const output = await generateAdminOutput(action, sourceText, taskContext);
+    setAiOutput(output);
+    setIsGenerating(false);
+  };
 
   const metricCards = [
     { label: 'Today', value: todaysTasks.length || 4, detail: 'scheduled items' },
