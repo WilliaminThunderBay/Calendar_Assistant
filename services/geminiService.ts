@@ -117,3 +117,39 @@ export const summarizeChat = async (chatHistory: ChatMessage[]): Promise<string>
     return "AI总结服务暂时不可用。";
   }
 };
+
+
+export const generateAdminOutput = async (
+  action: 'brief' | 'minutes' | 'email' | 'office-summary',
+  sourceText: string,
+  taskContext: string
+): Promise<string> => {
+  const instructions: Record<string, string> = {
+    brief: 'Create a concise executive brief with priorities, risks, decisions needed, owners and next actions.',
+    minutes: 'Turn the notes into professional meeting minutes with decisions, action items, owners and due dates when available.',
+    email: 'Draft a concise professional follow-up email with a clear subject line, context, actions and next steps.',
+    'office-summary': 'Create an office operations summary grouped by open items, owners, due dates, blockers and recommended next steps.'
+  };
+
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: `
+        You are an AI productivity assistant supporting an Executive Assistant and Office Manager.
+        Task: ${instructions[action]}
+        Current operational context:
+        ${taskContext || 'No task context provided.'}
+
+        Source material:
+        ${sourceText || 'Use the operational context to produce a concise sample output.'}
+
+        Keep the response practical, structured, professional, and ready to use in an office environment.
+      `
+    });
+
+    return response.text || 'No AI output was returned.';
+  } catch (error) {
+    console.error('AI admin workflow failed', error);
+    return 'AI service is unavailable. Add a valid Gemini API key to enable live executive brief, meeting-minutes, email-drafting and office-summary workflows.';
+  }
+};
