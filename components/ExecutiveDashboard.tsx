@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Task, ActivityLog } from '../types';
+import { generateAdminOutput } from '../services/geminiService';
 
 interface ExecutiveDashboardProps {
   tasks: Task[];
@@ -15,8 +16,10 @@ const ExecutiveDashboard: React.FC<ExecutiveDashboardProps> = ({
   onOpenAI
 }) => {
   const [aiOutput, setAiOutput] = useState(
-    'Select an AI productivity action to preview an executive-ready output.'
+    'Paste meeting notes, an email request or an office update, then run an AI productivity action.'
   );
+  const [sourceText, setSourceText] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const today = new Date().toISOString().split('T')[0];
   const todaysTasks = useMemo(
@@ -182,16 +185,24 @@ const ExecutiveDashboard: React.FC<ExecutiveDashboardProps> = ({
             <h3 className="font-bold text-gray-900">AI productivity studio</h3>
             <p className="text-xs text-gray-500 mt-1">Sample workflows for executive support, documentation and follow-through.</p>
           </div>
+          <textarea
+            value={sourceText}
+            onChange={(event) => setSourceText(event.target.value)}
+            rows={5}
+            placeholder="Paste meeting notes, an email request, visitor/vendor update, or any unstructured office information..."
+            className="w-full resize-y rounded-xl border border-gray-200 p-3 text-sm text-gray-800 outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 mb-3"
+          />
           <div className="grid sm:grid-cols-2 gap-2.5">
             {actions.map(action => (
               <button
                 type="button"
                 key={action.label}
-                onClick={() => setAiOutput(action.output)}
-                className="text-left p-3 rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-colors"
+                disabled={isGenerating}
+                onClick={() => runAIAction(action.key)}
+                className="text-left p-3 rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <div className="text-sm font-semibold text-gray-900">{action.label}</div>
-                <div className="text-xs text-gray-500 mt-1">Preview structured output</div>
+                <div className="text-xs text-gray-500 mt-1">Run live Gemini workflow</div>
               </button>
             ))}
           </div>
