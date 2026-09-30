@@ -7,6 +7,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Task, ViewMode, Region, UserProfile, Comment, ActivityLog, ChatMessage, User, FileItem, Folder, Attachment } from './types';
 import { CalendarIcon, PlusIcon, BotIcon, BellIcon, MapPinIcon, UserIcon, ShareIcon, UsersIcon, XIcon } from './components/icons';
 import Calendar from './components/Calendar';
+import ExecutiveDashboard from './components/ExecutiveDashboard';
 import TaskModal from './components/TaskModal';
 import AIAssistant from './components/AIAssistant';
 import UserProfileView from './components/UserProfile';
@@ -33,6 +34,7 @@ const mockOnlineUsers: User[] = [
 const App: React.FC = () => {
   // Navigation State
   const [view, setView] = useState<'calendar' | 'profile'>('calendar');
+  const [workspaceView, setWorkspaceView] = useState<'dashboard' | 'calendar'>('dashboard');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Data State (Loaded from Backend)
@@ -406,6 +408,37 @@ const App: React.FC = () => {
       {/* Controls & Navigation */}
       <div className="container mx-auto px-4 py-6 flex-1 flex flex-col relative">
         
+        <div className="flex items-center justify-between gap-3 mb-5 shrink-0">
+          <div className="inline-flex bg-white border border-gray-200 rounded-xl p-1 shadow-sm">
+            <button
+              type="button"
+              onClick={() => setWorkspaceView('dashboard')}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${workspaceView === 'dashboard' ? 'bg-slate-900 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
+            >
+              Executive Dashboard
+            </button>
+            <button
+              type="button"
+              onClick={() => setWorkspaceView('calendar')}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${workspaceView === 'calendar' ? 'bg-slate-900 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
+            >
+              Calendar & Tasks
+            </button>
+          </div>
+          <div className="hidden md:block text-xs text-gray-500">
+            Portfolio mode - sample operational data
+          </div>
+        </div>
+
+        {workspaceView === 'dashboard' ? (
+          <ExecutiveDashboard
+            tasks={filteredTasks}
+            activities={activities}
+            onOpenCalendar={() => setWorkspaceView('calendar')}
+            onOpenAI={() => setIsAIOpen(true)}
+          />
+        ) : (
+        <>
         {/* Main Calendar Area */}
         <div className="flex flex-col h-full">
           <div className="flex flex-wrap justify-between items-center gap-4 mb-6 shrink-0">
@@ -461,6 +494,8 @@ const App: React.FC = () => {
             />
           </div>
         </div>
+        </>
+        )}
 
         {/* Right Sidebar for Collaboration */}
         <CollaborationSidebar 
