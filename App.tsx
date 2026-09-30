@@ -277,7 +277,7 @@ const App: React.FC = () => {
           <div className="flex items-center gap-6">
             <h1 className="text-xl font-bold tracking-tight flex items-center gap-2">
               <CalendarIcon className="w-6 h-6" />
-              工程安装月历
+              Executive Operations AI Workspace
             </h1>
             
             {/* Region Selector */}
